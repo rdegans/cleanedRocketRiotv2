@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Drawing;
+using System.Media;
+using System.IO;
 
 namespace rocketRiotv2
 {
@@ -82,8 +84,6 @@ namespace rocketRiotv2
                         myPointCollection.Add(new Point(0, i2 * (-30)));
                     }
                     hitPoints[i].Points = myPointCollection;
-                    hitPoints[i].Stroke = Brushes.Red;
-                    hitPoints[i].StrokeThickness = 2;
                     Canvas.SetTop(hitPoints[i], 519 - Canvas.GetBottom(zappers[i]));
                     Canvas.SetLeft(hitPoints[i], 101 + Canvas.GetLeft(zappers[i]));
                     canvas.Children.Add(zappers[i]);

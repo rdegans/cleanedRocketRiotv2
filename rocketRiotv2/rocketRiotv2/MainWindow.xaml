@@ -5,11 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:rocketRiotv2"
         mc:Ignorable="d"
-        Title="Rocket Riot" Height="600" Width="800">
-    <Canvas x:Name="canvas">
-        <Canvas x:Name="playerCanvas" Height="600" Width="800"></Canvas>
-        <StackPanel>
-            <TextBox x:Name="lblOutput"/>
-        </StackPanel>
+        Title="Rocket Riot" Height="600" Width="800" MaxHeight="600" MaxWidth="800">
+    <Canvas x:Name="canvas" Height="600" Width="800" MaxHeight="600" MaxWidth="800">
+        <Canvas x:Name="playerCanvas" Height="600" Width="800" MaxHeight="600" MaxWidth="800"></Canvas>
+        <Grid Height="600" Width="800" MaxHeight="600" MaxWidth="800">
+            <TextBox x:Name="txtScore" Text="Score:" Background="Yellow" Height="50" Width="200" FontSize="40" FontFamily="Impact" Margin="10,10,590,540"></TextBox>
+            <Button x:Name="btnPause" Content="||" Height="60" Width="60" Margin="730,8,10,532" FontSize="30" Click="BtnPause_Click"></Button>
+        </Grid>
+        <Canvas.Background>
+            <ImageBrush ImageSource="C:\Users\Riley de Gans\Documents\ICS4UR\rocketRiotv2\rocketRiotv2\bin\Debug\background.png" Stretch="UniformToFill"/>
+        </Canvas.Background>
     </Canvas>
 </Window>
