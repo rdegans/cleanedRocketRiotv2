@@ -20,14 +20,13 @@ namespace rocketRiotv2
     public class Player
     {
         double xPosition, yPosition, xSpeed, ySpeed;
-        int coins;
         bool falling = true;
         Canvas canvas = new Canvas();
         Rectangle playerSprite = new Rectangle ();
-        Polygon hitBox = new Polygon();
+        Polygon hitBox;// = new Polygon();
+
         ImageBrush spritefill;//Image for the player
         BitmapImage bitmapImage;//Image file to use
-        Polygon test;
         int counter = 0;
         /// <summary>
         /// Create a player object
@@ -45,46 +44,6 @@ namespace rocketRiotv2
             canvas = c;
             playerSprite.Height = 75;
             playerSprite.Width = 75;
-
-            //bitmapImage = new BitmapImage(new Uri("spriteFill2.png", UriKind.Relative));
-            //spritefill = new ImageBrush(bitmapImage);
-
-            bitmapImage = new BitmapImage(new Uri("spriteFill2.png", UriKind.Relative));
-            spritefill = new ImageBrush(bitmapImage);
-
-            playerSprite.Fill = spritefill;
-            canvas.Children.Add(playerSprite);
-            Canvas.SetBottom(playerSprite, yPosition);
-            Canvas.SetLeft(playerSprite, xPosition);
-
-            //hitBox.Stroke = Brushes.Red;
-            hitBox.StrokeThickness = 2;
-            hitBox.FillRule = FillRule.EvenOdd;
-            hitBox.Fill = Brushes.Transparent;
-            StreamReader sr = new StreamReader("playerPoints.txt");
-            List<Point> points = new List<Point>();
-            while (!sr.EndOfStream)
-            {
-                string currentLine = sr.ReadLine();
-                double xPosition, yPosition;
-                double.TryParse(currentLine.Split(',')[0], out xPosition);
-                double.TryParse(currentLine.Split(',')[1], out yPosition);
-                Point point = new Point(xPosition, yPosition);
-
-
-                //solution to polygons, put polygon behind the player and make it transparent
-                //move the polygon with the player
-
-
-                points.Add(point);
-            }
-            PointCollection myPointCollection = new PointCollection();
-            for (int i = 0; i < points.Count; i++)
-            {
-                myPointCollection.Add(points[i]);
-            }
-            hitBox.Points = myPointCollection;
-            canvas.Children.Add(hitBox);
         }
         public void move()
         {       
@@ -150,10 +109,6 @@ namespace rocketRiotv2
             Canvas.SetBottom(hitBox, yPosition);
             Canvas.SetLeft(hitBox, xPosition);
         }
-        public void update()
-        {
-
-        }
         public bool intersectWith(PointCollection hits)
         {
             bool hitTrue = false;
@@ -192,9 +147,53 @@ namespace rocketRiotv2
             canvas.Children.Remove(hitBox);
             canvas.Children.Add(hitBox);
         }
-        public bool collision(Point point)
+        public void reset()
         {
-            return canvas.InputHitTest(point) == playerSprite;
+            canvas.Children.Remove(playerSprite);
+            falling = true;
+        }
+        public void generate()
+        {
+
+            //bitmapImage = new BitmapImage(new Uri("spriteFill2.png", UriKind.Relative));
+            //spritefill = new ImageBrush(bitmapImage);
+            hitBox = new Polygon();
+            bitmapImage = new BitmapImage(new Uri("spriteFill2.png", UriKind.Relative));
+            spritefill = new ImageBrush(bitmapImage);
+
+            playerSprite.Fill = spritefill;
+            canvas.Children.Add(playerSprite);
+            Canvas.SetBottom(playerSprite, yPosition);
+            Canvas.SetLeft(playerSprite, xPosition);
+
+            //hitBox.Stroke = Brushes.Red;
+            hitBox.StrokeThickness = 2;
+            hitBox.FillRule = FillRule.EvenOdd;
+            hitBox.Fill = Brushes.Transparent;
+            StreamReader sr = new StreamReader("playerPoints.txt");
+            List<Point> points = new List<Point>();
+            while (!sr.EndOfStream)
+            {
+                string currentLine = sr.ReadLine();
+                double xPosition, yPosition;
+                double.TryParse(currentLine.Split(',')[0], out xPosition);
+                double.TryParse(currentLine.Split(',')[1], out yPosition);
+                Point point = new Point(xPosition, yPosition);
+
+
+                //solution to polygons, put polygon behind the player and make it transparent
+                //move the polygon with the player
+
+
+                points.Add(point);
+            }
+            PointCollection myPointCollection = new PointCollection();
+            for (int i = 0; i < points.Count; i++)
+            {
+                myPointCollection.Add(points[i]);
+            }
+            hitBox.Points = myPointCollection;
+            canvas.Children.Add(hitBox);
         }
     }
 }
