@@ -58,7 +58,7 @@ namespace rocketRiotv2
             //Set Position
 
             Canvas.SetLeft(coin, random.Next(180) + quadrant * 200);
-            Canvas.SetTop(coin, random.Next(450));
+            Canvas.SetTop(coin, 150 + random.Next(415));
 
             //Add to canvas
             canvas.Children.Add(coin);

@@ -73,13 +73,13 @@ namespace rocketRiotv2
             }
             if (falling)
             {
-                if (yPosition + ySpeed > 0 )
+                if (yPosition + ySpeed > 30 )
                 {
                     yPosition += ySpeed;
                 }
                 else
                 {
-                    yPosition = 0;
+                    yPosition = 30;
                 }
             }
             else
