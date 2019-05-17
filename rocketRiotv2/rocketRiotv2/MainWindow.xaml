@@ -5,11 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:rocketRiotv2"
         mc:Ignorable="d"
-        Title="Rocket Riot" Height="600" Width="800" MaxHeight="600" MaxWidth="800">
+        Title="Rocket Riot" Height="625" Width="800" MaxHeight="600" MaxWidth="800">
     <Canvas x:Name="canvas" Height="600" Width="800" MaxHeight="600" MaxWidth="800">
         <Canvas x:Name="playerCanvas" Height="600" Width="800" MaxHeight="600" MaxWidth="800"></Canvas>
-        <Grid Height="600" Width="800" MaxHeight="600" MaxWidth="800">
-        </Grid>
         <Canvas.Background>
             <ImageBrush ImageSource="C:\Users\Riley de Gans\Documents\ICS4UR\rocketRiotv2\rocketRiotv2\bin\Debug\background.png" Stretch="UniformToFill"/>
         </Canvas.Background>

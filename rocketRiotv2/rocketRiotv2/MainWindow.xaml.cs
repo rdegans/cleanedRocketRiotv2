@@ -46,7 +46,8 @@ namespace rocketRiotv2
 
             //Conner's stuff
             //< Button x: Name = "btnPause" Content = "||" Height = "60" Width = "60" Margin = "730,8,10,532" FontSize = "30" Click = "BtnPause_Click" ></ Button >
-
+            gameTimer.Tick += GameTimer_Tick;
+            gameTimer.Interval = new TimeSpan(0, 0, 0, 0, 20);
             player = new Player(0, 300, 6, 0, playerCanvas);
             zappers = new Zapper(canvas, random);
             btnPause.Click += btnPause_Click;
@@ -144,14 +145,20 @@ namespace rocketRiotv2
             {
                 MessageBox.Show("You lose");
                 gameTimer.Stop();
+                player.reset();
+                zappers.reset();
+                for (int i = 0; i < 4; i++)
+                {
+                    coins[i].remove();
+                }
                 canvas.Children.Add(btnStartGame);
                 canvas.Children.Add(btnHighScores);
                 canvas.Children.Remove(btnPause);
                 canvas.Children.Remove(txtScore);
-                player.reset();
 
                 //add new high score
-
+                score = 0;
+                txtScore.Text = "Score: ";
             }
             for (int i = 0; i < 4; i++)
             {
@@ -185,6 +192,7 @@ namespace rocketRiotv2
         }
         private void btnStartGame_Click(object sender, RoutedEventArgs e)
         {
+            player.reset();
             zappers.generate();
             player.generate();
 
@@ -197,8 +205,6 @@ namespace rocketRiotv2
             SoundPlayer sp = new SoundPlayer("Rocket Man Soundtrack.wav");
             sp.PlayLooping();
 
-            gameTimer.Tick += GameTimer_Tick;
-            gameTimer.Interval = new TimeSpan(0, 0, 0, 0, 20);
             gameTimer.Start();
 
             canvas.Children.Remove(btnStartGame);

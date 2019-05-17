@@ -19,11 +19,11 @@ namespace rocketRiotv2
 {
     public class Player
     {
-        double xPosition, yPosition, xSpeed, ySpeed;
+        double xPosition, yPosition, xSpeed, ySpeed, gravity;
         bool falling = true;
         Canvas canvas = new Canvas();
         Rectangle playerSprite = new Rectangle ();
-        Polygon hitBox;// = new Polygon();
+        Polygon hitBox = new Polygon();
 
         ImageBrush spritefill;//Image for the player
         BitmapImage bitmapImage;//Image file to use
@@ -63,7 +63,7 @@ namespace rocketRiotv2
             {
                 if (falling)
                 {
-                    ySpeed -= 0.4;
+                    ySpeed -= gravity;
                 }
                 else
                 {
@@ -84,13 +84,13 @@ namespace rocketRiotv2
             }
             else
             {
-                if (yPosition + ySpeed < 480)
+                if (yPosition + ySpeed < 450)
                 {
                     yPosition += ySpeed;
                 }
                 else
                 {
-                    yPosition = 480;
+                    yPosition = 450;
                 }
             }
             if (xPosition + xSpeed < 800)
@@ -106,7 +106,7 @@ namespace rocketRiotv2
         {
             Canvas.SetBottom(playerSprite, yPosition);
             Canvas.SetLeft(playerSprite, xPosition);
-            Canvas.SetBottom(hitBox, yPosition);
+            Canvas.SetBottom(hitBox, yPosition - 5);
             Canvas.SetLeft(hitBox, xPosition);
         }
         public bool intersectWith(PointCollection hits)
@@ -126,7 +126,8 @@ namespace rocketRiotv2
             if (xPosition == 800)
             {
                 xPosition = 0;
-                xSpeed += 0.2;
+                xSpeed += 0.8;
+                gravity += 0.1;
                 return true;
             }
             else
@@ -149,8 +150,20 @@ namespace rocketRiotv2
         }
         public void reset()
         {
-            canvas.Children.Remove(playerSprite);
+            try
+            {
+                canvas.Children.Remove(playerSprite);
+                canvas.Children.Remove(hitBox);
+            }
+            catch{
+
+            }
             falling = true;
+            xSpeed = 6;
+            ySpeed = 0;
+            xPosition = 0;
+            yPosition = 300;
+            gravity = 0.4;
         }
         public void generate()
         {
@@ -180,7 +193,8 @@ namespace rocketRiotv2
                 double.TryParse(currentLine.Split(',')[1], out yPosition);
                 Point point = new Point(xPosition, yPosition);
 
-
+                /*
+                 */
                 //solution to polygons, put polygon behind the player and make it transparent
                 //move the polygon with the player
 
@@ -194,6 +208,7 @@ namespace rocketRiotv2
             }
             hitBox.Points = myPointCollection;
             canvas.Children.Add(hitBox);
+            gravity = 0.4;
         }
     }
 }

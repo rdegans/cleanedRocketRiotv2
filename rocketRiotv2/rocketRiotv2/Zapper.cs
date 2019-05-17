@@ -84,8 +84,9 @@ namespace rocketRiotv2
                         myPointCollection.Add(new Point(0, i2 * (-30)));
                     }
                     hitPoints[i].Points = myPointCollection;
-                    Canvas.SetTop(hitPoints[i], 519 - Canvas.GetBottom(zappers[i]));
+                    Canvas.SetTop(hitPoints[i], 560 - Canvas.GetBottom(zappers[i]));//519
                     Canvas.SetLeft(hitPoints[i], 101 + Canvas.GetLeft(zappers[i]));
+                    //hitPoints[i].Stroke = Brushes.Red;
                     canvas.Children.Add(zappers[i]);
                     canvas.Children.Add(hitPoints[i]);
                     RotateTransform rotate = new RotateTransform(orientation);
@@ -118,6 +119,21 @@ namespace rocketRiotv2
                 }
             }
             return returnPoints;
+        }
+        public void reset()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                try
+                {
+                    canvas.Children.Remove(zappers[i]);
+                    canvas.Children.Remove(hitPoints[i]);
+                }
+                catch
+                {
+
+                }
+            }
         }
     }
 }
